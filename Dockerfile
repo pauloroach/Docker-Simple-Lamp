@@ -46,12 +46,16 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_SERVERADMIN admin@localhost
 ENV APACHE_SERVERNAME www.dockerlamp.com
 ENV APACHE_SERVERALIAS www.local.dockerlamp.com
-ENV APACHE_DOCUMENTROOT /var/www/web/content
+ENV APACHE_DOCUMENTROOT /var/www/web/
 
 EXPOSE 80
 
 #ADD start.sh /start.sh
 #RUN chmod 0755 /start.sh
 #CMD ["bash", "start.sh"]
+
+set -e
+# Apache gets grumpy about PID files pre-existing
+rm -f /var/run/apache2/apache2.pid
 
 CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
