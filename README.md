@@ -10,6 +10,14 @@ This setup is great for writing quick apps in PHP from an OSX machine. It uses a
 ```
 docker-compose up -d
 ```
+
+### Visit your local!
+
+```
+http://localhost/
+```
+
+
 you can now start writing your app!
 
 ### Stop
