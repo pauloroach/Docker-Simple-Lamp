@@ -1,0 +1,14 @@
+version: '2'
+services:
+    web:
+        build: .
+        ports:
+            - "80:80"
+        volumes:
+            - ./content/web/:/var/www/web/
+        links:
+            - redis
+    redis:
+        image: "redis:alpine"
+        ports:
+            - "6379:6379"
