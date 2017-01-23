@@ -20,7 +20,6 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 # Install app
 RUN rm -rf /var/www/*
 VOLUME ["/var/www"]
-#ADD content /var/www/web/
 
 # Configure apache
 RUN a2enmod rewrite
@@ -30,7 +29,6 @@ RUN echo "ServerName dockerlamp" >> /etc/apache2/apache2.conf
 # Remove default site
 RUN rm /etc/apache2/sites-available/000-default.conf
 RUN rm -Rf /etc/apache2/sites-enabled/000-default.conf
-#RUN rm /etc/apache2/sites-available/default-ssl.conf
 
 # Add custom default site
 COPY ./apache/dockerlamp.conf /etc/apache2/sites-available/dockerlamp.conf
@@ -50,12 +48,7 @@ ENV APACHE_DOCUMENTROOT /var/www/web/
 
 EXPOSE 80
 
-#ADD start.sh /start.sh
-#RUN chmod 0755 /start.sh
-#CMD ["bash", "start.sh"]
-
-set -e
 # Apache gets grumpy about PID files pre-existing
+set -e
 rm -f /var/run/apache2/apache2.pid
-
 CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
